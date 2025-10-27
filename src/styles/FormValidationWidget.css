@@ -1,0 +1,97 @@
+:root {
+  --fvw-primary: #2575fc;
+  --fvw-secondary: #6a11cb;
+  --fvw-bg: #ffffff;
+  --fvw-text: #222;
+  --fvw-border: #e6e6e6;
+}
+
+.fv-form {
+  padding: 1rem;
+  background: var(--fvw-bg);
+  color: var(--fvw-text);
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.03);
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* field */
+.fv-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+}
+
+.fv-animate {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+}
+
+.fv-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.fv-input {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--fvw-border);
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.fv-input:focus {
+  border-color: var(--fvw-primary);
+  box-shadow: 0 0 0 3px rgba(37,117,252,0.08);
+}
+
+/* error */
+.fv-error .fv-input {
+  border-color: #e53e3e;
+}
+
+.fv-error-text {
+  color: #e53e3e;
+  font-size: 0.82rem;
+}
+
+/* buttons */
+.form-button {
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.form-button.primary {
+  background: var(--fvw-primary);
+  color: #fff;
+}
+
+.form-button.secondary {
+  background: var(--fvw-secondary);
+  color: #fff;
+}
+
+.form-button.loading {
+  opacity: 0.85;
+}
+
+/* submit error */
+.fv-submit-error {
+  margin-top: 0.25rem;
+  color: #9b2c2c;
+  background: #fff5f5;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid rgba(229,62,62,0.12);
+}
