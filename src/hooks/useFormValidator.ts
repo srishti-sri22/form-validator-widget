@@ -19,54 +19,123 @@ export const useFormValidator = (fields: FieldConfig[], validationMode: Validati
   };
 
   /**
-   * Update a field value immediately.
-   * If validationMode === 'onChange', run async validators and update errors when ready.
+   * Update a field value immediately and validate based on mode
    */
-  const setFieldValue = useCallback((name: string, value: unknown) => {
-    setFormState((prev) => {
-      const nextValues = { ...prev.values, [name]: value };
-      return { ...prev, values: nextValues };
-    });
+  const setFieldValue = useCallback(
+    async (name: string, value: unknown) => {
+      // Update value immediately
+      setFormState((prev) => ({
+        ...prev,
+        values: { ...prev.values, [name]: value },
+      }));
 
-    if (validationMode === 'onChange') {
-      const field = fields.find((f) => f.name === name);
-      if (field) {
-        // run validators async and update errors when done
-        (async () => {
+      // Validate on change if mode is onChange OR if field was already touched
+      if (validationMode === 'onChange') {
+        const field = fields.find((f) => f.name === name);
+        if (field) {
           try {
-            const err = await runValidatorsForField(field, value, { ...formState.values, [name]: value });
+            const allValues = { ...formState.values, [name]: value };
+            const err = await runValidatorsForField(field, value, allValues);
+            
             setFormState((prev) => {
               const nextErrors = { ...prev.errors };
-              if (err) nextErrors[name] = err;
-              else delete nextErrors[name];
+              if (err) {
+                nextErrors[name] = err;
+              } else {
+                delete nextErrors[name];
+              }
               return { ...prev, errors: nextErrors };
             });
           } catch (e) {
-            setFormState((prev) => ({ ...prev, errors: { ...prev.errors, [name]: (e as Error).message || 'Validation error' } }));
+            setFormState((prev) => ({
+              ...prev,
+              errors: { 
+                ...prev.errors, 
+                [name]: (e as Error).message || 'Validation error' 
+              },
+            }));
           }
-        })();
+        }
       }
-    }
-  }, [fields, validationMode, formState.values]);
-
-  const setFieldTouched = useCallback((name: string) => {
-    setFormState((prev) => ({ ...prev, touched: { ...prev.touched, [name]: true } }));
-  }, []);
+    },
+    [fields, validationMode, formState.values]
+  );
 
   /**
-   * Validate all fields and return a map of errors.
+   * Mark field as touched and validate on blur
+   */
+  const setFieldTouched = useCallback(
+    async (name: string) => {
+      // Mark as touched
+      setFormState((prev) => ({
+        ...prev,
+        touched: { ...prev.touched, [name]: true },
+      }));
+
+      // Always validate on blur regardless of mode
+      const field = fields.find((f) => f.name === name);
+      if (field) {
+        try {
+          const err = await runValidatorsForField(
+            field,
+            formState.values[name],
+            formState.values
+          );
+          
+          setFormState((prev) => {
+            const nextErrors = { ...prev.errors };
+            if (err) {
+              nextErrors[name] = err;
+            } else {
+              delete nextErrors[name];
+            }
+            return { ...prev, errors: nextErrors };
+          });
+        } catch (e) {
+          setFormState((prev) => ({
+            ...prev,
+            errors: {
+              ...prev.errors,
+              [name]: (e as Error).message || 'Validation error',
+            },
+          }));
+        }
+      }
+    },
+    [fields, formState.values]
+  );
+
+  /**
+   * Validate all fields and mark all as touched
    */
   const validateFormFields = useCallback(async (): Promise<Record<string, string>> => {
     const newErrors: Record<string, string> = {};
-    for (const f of fields) {
+    const newTouched: Record<string, boolean> = {};
+
+    // Validate all fields
+    for (const field of fields) {
+      newTouched[field.name] = true;
       try {
-        const err = await runValidatorsForField(f, formState.values[f.name], formState.values);
-        if (err) newErrors[f.name] = err;
+        const err = await runValidatorsForField(
+          field,
+          formState.values[field.name],
+          formState.values
+        );
+        if (err) {
+          newErrors[field.name] = err;
+        }
       } catch (e) {
-        newErrors[f.name] = (e as Error).message || 'Validation error';
+        newErrors[field.name] = (e as Error).message || 'Validation error';
       }
     }
-    setFormState((prev) => ({ ...prev, errors: newErrors }));
+
+    // Update state with all errors and touched fields
+    setFormState((prev) => ({
+      ...prev,
+      errors: newErrors,
+      touched: { ...prev.touched, ...newTouched },
+    }));
+
     return newErrors;
   }, [fields, formState.values]);
 

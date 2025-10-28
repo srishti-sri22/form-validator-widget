@@ -13,9 +13,9 @@ interface Props {
   showAnimation?: boolean;
 }
 
-const inputTypes = ['text', 'email', 'password', 'number', 'tel', 'url'];
+const allowedInputTypes = ['text', 'email', 'password', 'number', 'tel', 'url'];
 
-export const FormField: React.FC<Props> = ({
+const FormField: React.FC<Props> = ({
   field,
   value,
   error,
@@ -30,24 +30,29 @@ export const FormField: React.FC<Props> = ({
 
   useEffect(() => {
     if (showAnimation && rootRef.current) {
-      // small micro animation: add class to trigger css transition then remove
       const el = rootRef.current;
       el.classList.add('fv-animate');
       const tid = setTimeout(() => el.classList.remove('fv-animate'), 350);
       return () => clearTimeout(tid);
     }
-    return;
   }, [showAnimation]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const val = type === 'number' ? (e.target as HTMLInputElement).valueAsNumber : e.target.value;
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const val = type === 'number'
+      ? (e.target as HTMLInputElement).valueAsNumber
+      : e.target.value;
+
     onChange(name, val);
   };
 
   const handleBlur = () => onBlur(name);
 
+  const hasError = touched && !!error;
+
   return (
-    <div className={`fv-field ${error && touched ? 'fv-error' : ''}`} ref={rootRef}>
+    <div className={`fv-field ${error ? "fv-error" : ""} ${showAnimation ? "fv-animate" : ""}`} ref={rootRef}>
       <label htmlFor={name} className="fv-label">{label}</label>
 
       {type === 'textarea' ? (
@@ -56,12 +61,12 @@ export const FormField: React.FC<Props> = ({
           name={name}
           value={(value ?? '') as string}
           placeholder={placeholder}
+          maxLength={maxLength}
           onChange={handleChange}
           onBlur={handleBlur}
-          maxLength={maxLength}
           disabled={disabled}
           className="fv-input"
-          aria-invalid={!!error}
+          aria-invalid={hasError}
         />
       ) : options && options.length > 0 ? (
         <select
@@ -72,7 +77,7 @@ export const FormField: React.FC<Props> = ({
           onBlur={handleBlur}
           disabled={disabled}
           className="fv-input"
-          aria-invalid={!!error}
+          aria-invalid={hasError}
         >
           <option value="">Select</option>
           {options.map((o) => (
@@ -83,23 +88,21 @@ export const FormField: React.FC<Props> = ({
         <input
           id={name}
           name={name}
-          type={inputTypes.includes(type) ? type : 'text'}
+          type={allowedInputTypes.includes(type) ? type : 'text'}
           value={(value ?? '') as string}
           placeholder={placeholder}
+          maxLength={maxLength}
           onChange={handleChange}
           onBlur={handleBlur}
           disabled={disabled}
-          maxLength={maxLength}
           className="fv-input"
-          aria-invalid={!!error}
+          aria-invalid={hasError}
         />
       )}
 
-      <div className="fv-meta">
-        {touched && error ? <div className="fv-error-text">{error}</div> : null}
-      </div>
+      {hasError && <div className="fv-error-text">{error}</div>}
     </div>
   );
 };
 
-// export default FormField;
+export default FormField;

@@ -1,6 +1,5 @@
 import { useCallback, useRef, useState } from "react";
 import type { FormState } from "../utils/types";
-import { useThrottle } from "../utils/useDebounceThrottle";
 
 type SubmitFn = (values: Record<string, unknown>) => void | Promise<void>;
 
@@ -17,45 +16,56 @@ export const useFormSubmission = (
 ) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const isThrottled = useRef(false);
+  
+  // Track last submission time for throttling
+  const lastSubmitTime = useRef<number>(0);
 
-  const throttledSubmit = useThrottle(submitFn, throttleMs);
+  const handleSubmit = useCallback(
+    async (e?: React.FormEvent) => {
+      e?.preventDefault?.();
 
-const handleSubmit = useCallback(
-  async (e?: React.FormEvent) => {
-    e?.preventDefault?.();
-    if (isSubmitting || isThrottled.current) return;
+      // Prevent submission if already submitting
+      if (isSubmitting) return;
 
-    setSubmitError(null);
+      // Check throttle
+      const now = Date.now();
+      const timeSinceLastSubmit = now - lastSubmitTime.current;
+      
+      if (timeSinceLastSubmit < throttleMs) {
+        setSubmitError(
+          `Please wait ${Math.ceil((throttleMs - timeSinceLastSubmit) / 1000)} seconds before submitting again.`
+        );
+        return;
+      }
 
-    const errors = await validateForm();
-    if (errors && Object.keys(errors).length > 0) {
-      setSubmitError("Please fix validation errors before submitting.");
-      return;
-    }
+      setSubmitError(null);
 
-    isThrottled.current = true;
-    setIsSubmitting(true);
+      // Validate form
+      const errors = await validateForm();
+      if (errors && Object.keys(errors).length > 0) {
+        setSubmitError("Please fix validation errors before submitting.");
+        return;
+      }
 
-    try {
-      await throttledSubmit(values);
-    } catch (err) {
-      setSubmitError((err as Error).message || "Submission failed.");
-    } finally {
-      setIsSubmitting(false);
-      setTimeout(() => {
-        isThrottled.current = false;
-      }, throttleMs);
-    }
-  },
-  [submitFn, validateForm, throttleMs, throttledSubmit, isSubmitting, values]
-);
+      // Update last submit time
+      lastSubmitTime.current = now;
+      setIsSubmitting(true);
 
+      try {
+        await submitFn(values);
+        // Submission successful
+      } catch (err) {
+        setSubmitError((err as Error).message || "Submission failed.");
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [submitFn, validateForm, throttleMs, isSubmitting, values]
+  );
 
   return {
     handleSubmit,
     isSubmitting,
-    isThrottled: isThrottled.current,
     submitError,
     setSubmitError,
   };
