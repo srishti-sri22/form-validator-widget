@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+    "type": "module",
   "style": "dist/index.css",
   "exports": {
     ".": {
@@ -20,11 +21,15 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc --emitDeclarationOnly && vite build",
-    "copy-styles": "mkdir -p dist && cp -r src/styles dist/styles",
+    "build": "tsc  && vite build",
+    "postbuild": "node scripts/copy-styles.mjs",
     "preview": "vite preview",
     "prepublishOnly": "npm run build"
   },
+
+
+
+  
   "keywords": [
     "react",
     "form",
