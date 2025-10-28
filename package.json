@@ -1,9 +1,8 @@
 {
   "name": "srishti-form-validator-widget",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A beautiful, themeable form validation widget for React with TypeScript support",
   "main": "dist/index.js",
-  
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "type": "module",
