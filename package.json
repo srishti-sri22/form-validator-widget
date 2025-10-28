@@ -3,17 +3,18 @@
   "version": "1.0.1",
   "description": "A beautiful, themeable form validation widget for React with TypeScript support",
   "main": "dist/index.js",
+  
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "type": "module",
-  "style": "dist/index.css",
+  "style": "dist/style.css",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
-    "./dist/index.css": "./dist/index.css"
+    "./dist/style.css": "./dist/style.css"
   },
   "files": [
     "dist",
@@ -22,7 +23,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc  && vite build",
-    "postbuild": "node scripts/copy-styles.mjs",
+    "postbuild": "node scripts/copy-styles.js",
     "preview": "vite preview",
     "prepublishOnly": "npm run build"
   },
