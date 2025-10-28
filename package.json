@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "dev": "vite",
-     "build": "rimraf dist && tsc && vite build && npm run copy-styles",
+    "build": "tsc --emitDeclarationOnly && vite build",
     "copy-styles": "mkdir -p dist && cp -r src/styles dist/styles",
     "preview": "vite preview",
     "prepublishOnly": "npm run build"
