@@ -1,4 +1,3 @@
-import React from "react";
 import { useCallback, useRef, useState } from "react";
 import type { FormState } from "../utils/types";
 
