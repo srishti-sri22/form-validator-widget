@@ -49,7 +49,7 @@ function App() {
       onSubmit={async (values: Record<string, unknown>) => {
         await new Promise((r) => setTimeout(r, 1500));
         console.log('Form submitted successfully:', values);
-        //alert('Form submitted! Check console for values.');
+        alert('Form submitted! Check console for values.');
       }}
       showResetButton
       submitButtonText="Submit"

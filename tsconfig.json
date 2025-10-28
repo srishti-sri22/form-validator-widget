@@ -1,17 +1,16 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "outDir": "dist",
+    "declaration": true,
+    "declarationDir": "dist",
+    "emitDeclarationOnly": false,
+    "moduleResolution": "node",
+    "target": "ES2019",
     "module": "ESNext",
     "jsx": "react-jsx",
-    "declaration": true,
-    "emitDeclarationOnly": false,
-    "outDir": "dist",
-    "lib": ["DOM", "ES2017"],
-    "moduleResolution": "Node",
-    "isolatedModules": true,
-    "skipLibCheck": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "skipLibCheck": true,
+    "strict": false
   },
   "include": ["src", "src/index.ts"],
   "exclude": ["src/App.tsx", "src/main.tsx"]
