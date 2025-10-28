@@ -1,7 +1,7 @@
 import React from 'react';
 import DynamicForm from './DynamicForm';
 import type { FieldConfig, CustomizationOptions } from '../utils/types';
-import '../styles/FormValidationWidget.css';
+import '../styles/style.css';
 import type { FormTheme, ThemeName } from '../utils/types';
 
 export interface FormWidgetProps {

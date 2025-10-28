@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useFormSubmission } from "../hooks/useFormSubmission";
 import { useFormValidator } from "../hooks/useFormValidator";
 import { generateThemeVariables, getTheme } from "../utils/themes";
-import "../styles/FormValidationWidget.css";
+import "../styles/style.css";
 
 import type {
   CustomizationOptions,

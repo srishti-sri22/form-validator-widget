@@ -1,34 +1,58 @@
 {
   "name": "srishti-form-validator-widget",
-  "version": "1.0.11",
-  "private": false,
-  "main": "dist/index.umd.js",
+  "version": "1.0.0",
+  "description": "A beautiful, themeable form validation widget for React with TypeScript support",
+  "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "peerDependencies": {
-    "react": ">=18",
-    "react-dom": ">=18"
+  "style": "dist/index.css",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./dist/index.css": "./dist/index.css"
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build && tsc -p tsconfig.build.json"
+     "build": "rimraf dist && tsc && vite build && npm run copy-styles",
+    "copy-styles": "mkdir -p dist && cp -r src/styles dist/styles",
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "react",
+    "form",
+    "validation",
+    "form-validation",
+    "react-form",
+    "typescript",
+    "form-widget",
+    "validator",
+    "react-validation",
+    "form-builder"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/srishti-form-validator-widget"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.9",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-typescript": "^12.3.0",
-    "@vitejs/plugin-react": "^4.7.0",
-    "rollup": "^4.52.5",
-    "rollup-plugin-postcss": "^4.0.2",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
     "typescript": "^5.0.0",
-    "vite": "^5.4.21",
-    "vite-plugin-dts": "^4.5.4"
+    "vite": "^5.0.0",
+    "vite-plugin-dts": "^3.0.0"
   },
-  "dependencies": {
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2"
-  }
+  "dependencies": {}
 }

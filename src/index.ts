@@ -1,6 +1,6 @@
 // Main component export
 export { default } from './components/FormValidationWidget';
-import './styles/FormValidationWidget.css';
+import './styles/style.css';
 
 export { default as FormValidationWidget } from './components/FormValidationWidget';
 // Type exports from utils/types
@@ -21,4 +21,4 @@ export type { FormWidgetProps } from './components/FormValidationWidget';
 export { themes, getTheme, generateThemeVariables } from './utils/themes';
 
 // Export CSS (users need to import this)
-import './styles/FormValidationWidget.css';
+import './styles/style.css';

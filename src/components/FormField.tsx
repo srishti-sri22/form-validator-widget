@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import type { FieldConfig } from '../utils/types';
-import '../styles/FormValidationWidget.css';
+import '../styles/style.css';
 
 interface Props {
   field: FieldConfig;

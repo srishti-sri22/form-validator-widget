@@ -8,7 +8,6 @@
   --fvw-success: #38a169;
 }
 
-/* Global body styling */
 body {
   margin: 0;
   padding: 0;
@@ -17,7 +16,6 @@ body {
   animation: gradientShift 15s ease infinite;
 }
 
-/* Wrapper - Centers the form */
 .fvw-wrapper {
   width: 100%;
   min-height: 100vh;
@@ -34,7 +32,6 @@ body {
   
 }
 
-/* Form - Card Style */
 .fvw-form {
   width: 100%;
   max-width: 480px;
@@ -48,7 +45,6 @@ body {
   overflow: hidden;
 }
 
-/* Form Header */
 .fvw-form-header {
   text-align: center;
   margin-bottom: 2rem;
@@ -115,14 +111,12 @@ body {
   }
 }
 
-/* Root container for fields */
 .fvw-root {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 }
 
-/* Field */
 .fv-field {
   display: flex;
   flex-direction: column;
@@ -200,14 +194,12 @@ body {
   background: rgba(0, 0, 0, 0.03);
 }
 
-/* Textarea specific */
 textarea.fv-input {
   resize: vertical;
   min-height: 100px;
   font-family: inherit;
 }
 
-/* Error state with shake animation */
 .fv-error {
   animation: shake 0.4s ease-in-out;
 }
@@ -263,7 +255,6 @@ textarea.fv-input {
   }
 }
 
-/* Actions container */
 .fvw-actions {
   display: flex;
   gap: 0.75rem;
@@ -271,7 +262,6 @@ textarea.fv-input {
   flex-wrap: wrap;
 }
 
-/* Buttons */
 .fvw-btn-submit,
 .fvw-btn-reset {
   flex: 1;
@@ -350,7 +340,7 @@ textarea.fv-input {
   transform: none;
 }
 
-/* Submit error */
+
 .fvw-submit-error {
   margin-top: 1rem;
   color: #9b2c2c;
@@ -365,7 +355,7 @@ textarea.fv-input {
   text-align: center;
 }
 
-/* Loading state with spinner */
+
 .fvw-btn-submit.loading {
   pointer-events: none;
   opacity: 0.8;
@@ -392,7 +382,7 @@ textarea.fv-input {
   }
 }
 
-/* Success state (optional - for future use) */
+
 .fv-field.success .fv-input {
   border-color: var(--fvw-success);
 }
@@ -401,7 +391,7 @@ textarea.fv-input {
   color: var(--fvw-success);
 }
 
-/* Responsive */
+
 @media (max-width: 640px) {
   .fvw-wrapper {
     padding: 1rem;
@@ -421,7 +411,7 @@ textarea.fv-input {
   }
 }
 
-/* Accessibility - Focus visible */
+
 .fv-input:focus-visible,
 .fvw-btn-submit:focus-visible,
 .fvw-btn-reset:focus-visible {
