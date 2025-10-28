@@ -1,4 +1,3 @@
-import React from 'react';
 import FormValidationWidget from './components/FormValidationWidget';
 import type { FieldConfig } from './utils/types';
 

@@ -1,17 +1,30 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "declaration": true,
-    "declarationDir": "dist",
-    "emitDeclarationOnly": false,
-    "moduleResolution": "node",
-    "target": "ES2019",
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "jsx": "react-jsx",
-    "esModuleInterop": true,
     "skipLibCheck": true,
-    "strict": false
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": false,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "jsx": "react-jsx",
+
+    /* Type generation */
+    "declaration": true,
+    "declarationDir": "./dist",
+    "emitDeclarationOnly": false,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/index.ts"],
-  "exclude": ["src/App.tsx", "src/main.tsx"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }

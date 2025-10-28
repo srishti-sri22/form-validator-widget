@@ -1,0 +1,8 @@
+src/
+node_modules/
+public/
+tester/
+dist/**/*.map
+*.log
+vite.config.ts
+tsconfig*.json
