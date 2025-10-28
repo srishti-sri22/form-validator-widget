@@ -9,6 +9,7 @@ import type {
   FieldConfig,
   FormTheme,
   ThemeName,
+  ValidationMode,
 } from "../utils/types";
 import FormField from "./FormField";
 
@@ -32,14 +33,14 @@ const DynamicForm: React.FC<FormProps> = ({
   fields,
   onSubmit,
   validationMode = "onBlur",
-  customization = {},
+  customization = {} as CustomizationOptions,
   submitButtonText = "Submit",
   resetButtonText = "Reset",
   showResetButton = true,
   disabled = false,
   className,
   submitThrottleMs = 1200,
-  theme = "modern_themes",
+  theme = "modern_themes" as ThemeName,
   title = "Welcome Back",
   subtitle = "Please fill in the form below",
 }) => {
@@ -50,7 +51,8 @@ const DynamicForm: React.FC<FormProps> = ({
     validateFormFields,
     resetForm,
     setFormState,
-  } = useFormValidator(fields, validationMode);
+  } = useFormValidator(fields, validationMode as ValidationMode);
+
 
   const {
     handleSubmit,
@@ -65,7 +67,6 @@ const DynamicForm: React.FC<FormProps> = ({
     setFormState
   );
 
-  // Clear submit error when there are no validation errors
   useEffect(() => {
     const hasErrors = Object.values(formState.errors).some(Boolean);
     if (!hasErrors && submitError) {
@@ -73,7 +74,7 @@ const DynamicForm: React.FC<FormProps> = ({
     }
   }, [formState.errors, submitError, setSubmitError]);
 
-  const selectedTheme = getTheme(theme);
+  const selectedTheme = getTheme(theme as ThemeName);
   const themeVariables = generateThemeVariables(selectedTheme);
 
   // Build class names with customization support

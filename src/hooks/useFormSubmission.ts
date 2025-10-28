@@ -1,3 +1,4 @@
+import React from "react";
 import { useCallback, useRef, useState } from "react";
 import type { FormState } from "../utils/types";
 
@@ -17,14 +18,13 @@ export const useFormSubmission = (
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   
-  // Track last submission time for throttling
   const lastSubmitTime = useRef<number>(0);
 
   const handleSubmit = useCallback(
     async (e?: React.FormEvent) => {
       e?.preventDefault?.();
 
-      // Prevent submission if already submitting
+      
       if (isSubmitting) return;
 
       // Check throttle
@@ -40,20 +40,20 @@ export const useFormSubmission = (
 
       setSubmitError(null);
 
-      // Validate form
+      
       const errors = await validateForm();
       if (errors && Object.keys(errors).length > 0) {
         setSubmitError("Please fix validation errors before submitting.");
         return;
       }
 
-      // Update last submit time
+      
       lastSubmitTime.current = now;
       setIsSubmitting(true);
 
       try {
         await submitFn(values);
-        // Submission successful
+        
       } catch (err) {
         setSubmitError((err as Error).message || "Submission failed.");
       } finally {
