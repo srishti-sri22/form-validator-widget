@@ -18,9 +18,6 @@ export const useFormValidator = (fields: FieldConfig[], validationMode: Validati
     setFormState((prev) => ({ ...prev, ...partial }));
   };
 
-  /**
-   * Update a field value immediately and validate based on mode
-   */
   const setFieldValue = useCallback(
     async (name: string, value: unknown) => {
       // Update value immediately
@@ -29,7 +26,7 @@ export const useFormValidator = (fields: FieldConfig[], validationMode: Validati
         values: { ...prev.values, [name]: value },
       }));
 
-      // Validate on change if mode is onChange OR if field was already touched
+      
       if (validationMode === 'onChange') {
         const field = fields.find((f) => f.name === name);
         if (field) {
@@ -61,9 +58,7 @@ export const useFormValidator = (fields: FieldConfig[], validationMode: Validati
     [fields, validationMode, formState.values]
   );
 
-  /**
-   * Mark field as touched and validate on blur
-   */
+
   const setFieldTouched = useCallback(
     async (name: string) => {
       // Mark as touched
@@ -72,7 +67,7 @@ export const useFormValidator = (fields: FieldConfig[], validationMode: Validati
         touched: { ...prev.touched, [name]: true },
       }));
 
-      // Always validate on blur regardless of mode
+      
       const field = fields.find((f) => f.name === name);
       if (field) {
         try {
@@ -105,14 +100,12 @@ export const useFormValidator = (fields: FieldConfig[], validationMode: Validati
     [fields, formState.values]
   );
 
-  /**
-   * Validate all fields and mark all as touched
-   */
+  
   const validateFormFields = useCallback(async (): Promise<Record<string, string>> => {
     const newErrors: Record<string, string> = {};
     const newTouched: Record<string, boolean> = {};
 
-    // Validate all fields
+    
     for (const field of fields) {
       newTouched[field.name] = true;
       try {
@@ -129,7 +122,7 @@ export const useFormValidator = (fields: FieldConfig[], validationMode: Validati
       }
     }
 
-    // Update state with all errors and touched fields
+    
     setFormState((prev) => ({
       ...prev,
       errors: newErrors,

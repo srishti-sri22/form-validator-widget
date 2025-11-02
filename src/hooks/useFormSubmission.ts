@@ -26,7 +26,7 @@ export const useFormSubmission = (
       
       if (isSubmitting) return;
 
-      // Check throttle
+     
       const now = Date.now();
       const timeSinceLastSubmit = now - lastSubmitTime.current;
       

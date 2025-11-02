@@ -77,7 +77,6 @@ const DynamicForm: React.FC<FormProps> = ({
   const selectedTheme = getTheme(theme as ThemeName);
   const themeVariables = generateThemeVariables(selectedTheme);
 
-  // Build class names with customization support
   const wrapperClass = [
     "fvw-wrapper",
     className,
