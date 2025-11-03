@@ -18,7 +18,7 @@ export interface FieldConfig {
 
 export interface FormValidationWidgetProps {
   fields: FieldConfig[]
-  onSubmit: (data: Record<string, any>) => void | Promise<void>
+  onSubmit: (data: Record<string, unknown>) => void | Promise<void>
   submitBtnText?: string
   theme?: string
 }

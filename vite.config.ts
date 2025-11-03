@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
   plugins: [
@@ -10,13 +11,21 @@ export default defineConfig({
       insertTypesEntry: true,
       outDir: 'dist',
     }),
+    viteStaticCopy({
+      targets: [
+        {
+          src: 'src/styles/**/*',
+          dest: 'styles'           
+        }
+      ]
+    })
   ],
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'SrishtiFormValidator',
       formats: ['es', 'cjs'],
-      fileName: (format) => `index.${format === 'es'? 'mjs' : 'js' }`,
+      fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`,
     },
     rollupOptions: {
       external: ['react', 'react-dom'],

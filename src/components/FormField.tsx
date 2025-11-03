@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import type { FieldConfig } from '../utils/types';
 import '../styles/style.css';
+import { useDebounce } from "../utils/useDebounceThrottle";
 
 interface Props {
   field: FieldConfig;
@@ -37,13 +38,19 @@ const FormField: React.FC<Props> = ({
     }
   }, [showAnimation]);
 
+const debouncedValidate = useDebounce((name, value) => {
+  validateField(name, value);
+}, 400);
+
+
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const val = type === 'number'
       ? (e.target as HTMLInputElement).valueAsNumber
       : e.target.value;
-
+    debouncedValidate(name, value);
     onChange(name, val);
   };
 
@@ -106,3 +113,10 @@ const FormField: React.FC<Props> = ({
 };
 
 export default FormField;
+
+
+
+function validateField(_name: unknown, _value: unknown) {
+  throw new Error('Function not implemented.');
+}
+

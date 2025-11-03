@@ -7,7 +7,7 @@ export const useFormSubmission = (submitFn, validateForm, values, throttleMs = 1
         e?.preventDefault?.();
         if (isSubmitting)
             return;
-        // Check throttle
+        
         const now = Date.now();
         const timeSinceLastSubmit = now - lastSubmitTime.current;
         if (timeSinceLastSubmit < throttleMs) {
