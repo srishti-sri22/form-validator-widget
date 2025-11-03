@@ -26,7 +26,11 @@ export const useFormValidator = (fields: FieldConfig[], validationMode: Validati
         values: { ...prev.values, [name]: value },
       }));
 
+<<<<<<< HEAD
      
+=======
+      
+>>>>>>> 1cc586064fa8944784007e10e483f75f5ff58336
       if (validationMode === 'onChange') {
         const field = fields.find((f) => f.name === name);
         if (field) {
@@ -58,6 +62,10 @@ export const useFormValidator = (fields: FieldConfig[], validationMode: Validati
     [fields, validationMode, formState.values]
   );
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1cc586064fa8944784007e10e483f75f5ff58336
   const setFieldTouched = useCallback(
     async (name: string) => {
       // Mark as touched
@@ -66,6 +74,10 @@ export const useFormValidator = (fields: FieldConfig[], validationMode: Validati
         touched: { ...prev.touched, [name]: true },
       }));
 
+<<<<<<< HEAD
+=======
+      
+>>>>>>> 1cc586064fa8944784007e10e483f75f5ff58336
       const field = fields.find((f) => f.name === name);
       if (field) {
         try {
@@ -98,12 +110,16 @@ export const useFormValidator = (fields: FieldConfig[], validationMode: Validati
     [fields, formState.values]
   );
 
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 1cc586064fa8944784007e10e483f75f5ff58336
   const validateFormFields = useCallback(async (): Promise<Record<string, string>> => {
     const newErrors: Record<string, string> = {};
     const newTouched: Record<string, boolean> = {};
 
-    // Validate all fields
+    
     for (const field of fields) {
       newTouched[field.name] = true;
       try {
@@ -120,6 +136,10 @@ export const useFormValidator = (fields: FieldConfig[], validationMode: Validati
       }
     }
 
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 1cc586064fa8944784007e10e483f75f5ff58336
     setFormState((prev) => ({
       ...prev,
       errors: newErrors,
