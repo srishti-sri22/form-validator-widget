@@ -38,4 +38,7 @@ export default defineConfig({
     },
     cssCodeSplit: false,
   },
+  resolve: {
+    dedupe: ['react', 'react-dom'], // This ensures only one copy of React is used
+  },
 });

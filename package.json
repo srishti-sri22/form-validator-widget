@@ -1,20 +1,21 @@
 {
   "name": "srishti-form-validator-widget",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A beautiful, themeable form validation widget for React with TypeScript support",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "type": "module",
-  "style": "dist/style.css",
+  "style": "dist/styles/style.css",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
-    "./style.css": "./dist/style.css"
+    "./dist/styles/style.css": "./dist/styles/style.css"
   },
+
   "files": [
     "dist",
     "README.md"
@@ -38,11 +39,11 @@
     "react-validation",
     "form-builder"
   ],
-  "author": "Your Name",
+  "author": "Srishti Srivastava",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/srishti-form-validator-widget"
+    "url": "https://github.com/srishti-sri22/form-validator-widget"
   },
   "peerDependencies": {
     "react": "^18.0.0",
